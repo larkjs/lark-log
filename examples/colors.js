@@ -6,7 +6,7 @@
 
 'use strict';
 
-var log = require('./../lib/log');
+var log = require('../');
 var colors = require('colors');
 
 var config = {
@@ -35,3 +35,4 @@ logger.info('info' + Date.now());
 logger.debug('debug' + Date.now());
 logger.debug('debug' + Date.now());
 logger.error('error' + Date.now());
+
