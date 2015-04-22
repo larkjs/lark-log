@@ -1,6 +1,6 @@
 {
   "name": "lark-log",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "lark.js log module",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "log",
     "lark"
   ],
-  "author": "mdemo",
+  "author": "mdemo, zezhou",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/larkjs/lark-log/issues"
@@ -22,7 +22,6 @@
   "homepage": "https://github.com/larkjs/lark-log",
   "dependencies": {
     "debug": "^2.1.1",
-    "lodash": "^2.4.1",
     "tracer": "^0.7.3"
   },
   "devDependencies": {

@@ -12,7 +12,7 @@ This is Lark.js log module based on [tracer](https://github.com/baryon/tracer)
 ### sample 
 
 ```javascript
-var logger = require('lark-log')()
+var logger = require('lark-log').logger
 
 logger.info('info message');
 ```
@@ -24,26 +24,13 @@ logger.info('info message');
 var log = require('lark-log');
 
 var config = {
-    files: {
-        debug: {
-            path: 'debug.log',
-            options:{
-                encoding: 'utf8'
-            }
-        },
-        info: {
-            path: 'info.log'
-        },
-        error: {
-
-        }
-    }
+    'appname': 'lark-app'
 };
 var logger = log(config);
 
-logger.info('info' + Date.now());//write to info.log
-logger.debug('debug' + Date.now());//write to debug.log
-logger.debug('debug' + Date.now());
+logger.info('info' + Date.now());// write to info.log
+logger.debug('debug' + Date.now());// write to terminal with blue colors
+logger.debug('log' + Date.now()); // write to terminal with green colors
 logger.error('error' + Date.now());//show in the terminal
 ```
 
@@ -55,38 +42,3 @@ logger.error('error' + Date.now());//show in the terminal
 [david-image]: https://img.shields.io/david/larkjs/lark-log.svg?style=flat-square
 [david-url]: https://david-dm.org/larkjs/lark-log
 
-
-
-### with colors
-
-```javascript
-var log = require('lark-log');
-var colors = require('colors');
-
-var config = {
-    dateformat : "HH:MM:ss.L",
-    files: {
-        debug: {
-            path: 'debug.log',
-            options:{
-                encoding: 'utf8'
-            }
-        },
-        info: {
-            path: 'info.log'
-        },
-        error: {
-
-        }
-    },
-    filters : {
-        error : [ colors.red, colors.bold ]
-    }
-};
-var logger = log(config);
-
-logger.info('info' + Date.now());
-logger.debug('debug' + Date.now());
-logger.debug('debug' + Date.now());
-logger.error('error' + Date.now());
-```
