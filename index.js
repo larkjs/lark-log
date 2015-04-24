@@ -15,7 +15,7 @@ module.exports = {
      *     >>> app.use(require('lark-log').middleware(conf))
      *
      */
-    'middleware': require('./lib/middleware'),
+    'middleware': require('./middleware'),
     /* Generate custom logger by chain calling.
      *
      *     >>> conf.logid = this.request.logid
@@ -26,5 +26,7 @@ module.exports = {
      *
      *     >>> var logid = require('lark-log').get_logid()
      */
-    'get_logid': require('./lib/generateLogid') 
+    'get_logid': require('./lib/logid') 
 }
+
+

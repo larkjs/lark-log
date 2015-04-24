@@ -4,7 +4,7 @@
   "description": "lark.js log module",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/"
+    "test": "./node_modules/.bin/mocha --harmony test/"
   },
   "repository": {
     "type": "git",
