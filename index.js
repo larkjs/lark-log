@@ -8,7 +8,7 @@ module.exports = {
      *     >>> var logger = require('lark-log').logger
      *
      */
-    'logger': configure(), 
+    'logging': configure(), 
     /*
      * Generate log middleware for app.
      *
@@ -26,7 +26,7 @@ module.exports = {
      *
      *     >>> var logid = require('lark-log').get_logid()
      */
-    'get_logid': require('./lib/logid') 
+    'generate_logid': require('./lib/logid') 
 }
 
 
