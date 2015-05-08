@@ -1,32 +1,24 @@
 'use strict';
-var configure = require('./lib/configure')
+//@TODO auto-generate logid
+//@TODO ingerated talkwith in http
+//@TODO print line nu in sys log
+var Logger = require('./lib/Logger')
+var default_config = require('./conf/defaults')
+var logging = global.larkLog = (typeof(global.larkLog) == "object") ?
+    global.larkLog: new Logger(default_config) // Set lark-log as a gloabal variable to facilatate using.
 
 module.exports = {
     /*
-     * Generate logger with default setting.
-     *
-     *     >>> var logger = require('lark-log').logger
-     *
+     * Provide well defined logger to user.
+     *     >>> var loggging = require('lark-log').logging
+     *     >>> logging.info('message')
      */
-    'logging': configure(), 
+    'logging': logging, 
     /*
-     * Generate log middleware for app.
+     * logging middleware for lark/koa app.
      *
      *     >>> app.use(require('lark-log').middleware(conf))
      *
      */
-    'middleware': require('./middleware'),
-    /* Generate custom logger by chain calling.
-     *
-     *     >>> conf.logid = this.request.logid
-     *     >>> var logger = require('lark-log').configure(conf).logger
-     */
-    'configure': configure,
-    /* Generate logid for debugging
-     *
-     *     >>> var logid = require('lark-log').get_logid()
-     */
-    'generate_logid': require('./lib/logid') 
+    'middleware': require('./lib/middleware')(logging),
 }
-
-

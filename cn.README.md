@@ -61,6 +61,16 @@ try{
 
 系统要尽量保证没有错误日志输出。如果有输出错误日志，表明有错误需要修复。
 
+## 调试日志
+
+调试日志是开发时用于调试的日志，日志直接输出到终端里，并且在 production 环境下不会生效。调试日志使用方法:
+
+
+```
+require('lark-log').logging.debug('debug message')
+require('lark-log').logging.log('dev message')
+```
+
 ## logid
 
 生成logid

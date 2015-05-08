@@ -9,29 +9,38 @@ This is Lark.js log module based on [tracer](https://github.com/baryon/tracer)
 
 ## Useage
 
+[中文版](https://github.com/larkjs/lark-log/blob/master/cn.README.md)
+
 ### sample 
 
 ```javascript
-var logger = require('lark-log').logger
+var logging = require('lark-log').logging
 
-logger.info('info message');
+logging.info('info message');
 ```
 
-### with files
+### configure
 
 
 ```javascript
-var log = require('lark-log');
 
 var config = {
-    'appname': 'lark-app'
+    'daily':{
+        'name': 'larkapp'
+    },
+    'info': {
+        'name': 'larkapp.info'
+    },
+    'sys': {
+        'name': 'larkapp.sys'
+    }
 };
-var logger = log(config);
+var logging = require('lark-log').logging.configure(config);
 
-logger.info('info' + Date.now());// write to info.log
-logger.debug('debug' + Date.now());// write to terminal with blue colors
-logger.debug('log' + Date.now()); // write to terminal with green colors
-logger.error('error' + Date.now());//show in the terminal
+logger.debug('debug' + Date.now());// write to terminal
+logger.trace('log' + Date.now()); // write to terminal
+logger.info('info' + Date.now());// write to larkapp.info.log
+logger.error('error' + Date.now());//write to larkapp.sys.log
 ```
 
 [npm-image]: https://img.shields.io/npm/v/lark-log.svg?style=flat-square

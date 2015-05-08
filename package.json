@@ -21,8 +21,7 @@
   },
   "homepage": "https://github.com/larkjs/lark-log",
   "dependencies": {
-    "debug": "^2.1.1",
-    "tracer": "^0.7.3"
+    "debug": "^2.1.1"
   },
   "devDependencies": {
     "mocha": "^2.1.0"
