@@ -1,7 +1,6 @@
 'use strict';
-//@TODO auto-generate logid
 //@TODO ingerated talkwith in http
-//@TODO print line nu in sys log
+//@TODO print line no in sys log
 var Logger = require('./lib/Logger')
 var default_config = require('./conf/defaults')
 var logging = global.larkLog = (typeof(global.larkLog) == "object") ?

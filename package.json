@@ -1,6 +1,6 @@
 {
   "name": "lark-log",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "lark.js log module",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/larkjs/lark-log",
   "dependencies": {
-    "debug": "^2.1.1"
   },
   "devDependencies": {
     "mocha": "^2.1.0"
