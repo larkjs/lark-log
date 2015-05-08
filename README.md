@@ -1,6 +1,6 @@
 # lark-log
 
-This is Lark.js log module based on [tracer](https://github.com/baryon/tracer)
+This is Lark.js log module.
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -9,7 +9,7 @@ This is Lark.js log module based on [tracer](https://github.com/baryon/tracer)
 
 ## Useage
 
-[中文版](https://github.com/larkjs/lark-log/blob/master/cn.README.md)
+[中文版说明](https://github.com/larkjs/lark-log/blob/master/cn.README.md)
 
 ### sample 
 

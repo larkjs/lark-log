@@ -1,7 +1,6 @@
 'use strict';
-
 var assert = require("assert");
-var debug = require('debug')('log')
+/*
 describe('sample use', function(){
     it('should equal without config', function(){
         var logger = require('../').configure({ 
@@ -22,11 +21,10 @@ describe('sample use', function(){
     });
 
 });
+*/
 describe('logid', function(){
     it('should use config logid', function(){
-        var logger = require('../').configure({
-            logid:123
-        });
+        var logger = require('../').logging;
         var o = logger.info('logging.info');
         //assert.equal(o.logid, 123);
         //assert.equal(o.message, 'hello');
