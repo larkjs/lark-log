@@ -32,8 +32,8 @@ var config  = {
     },
     'info': {
         'root': './logs',
-        'name': 'app.info',
-        'logPathFormat' : '{{root}}/{{prefix}}.{{date}}.log',
+        'name': 'app',
+        'logPathFormat' : '{{root}}/{{prefix}}.{{date}}.info.log',
         'splitFormat' : 'yyyymmdd',
         'methods' : ['info', 'notice', 'warn'],
         'format': '{{method}}: {{datetime}} {{message}}',
@@ -41,9 +41,9 @@ var config  = {
     },
     'sys': {
         'root': './logs',
-        'name': 'app.sys',
+        'name': 'app',
         'method': ['error', 'fatal'],
-        'logPathFormat' : '{{root}}/{{prefix}}.log',
+        'logPathFormat' : '{{root}}/{{prefix}}.log.wf',
         //'format': '{{datetime}} {{file}}:{{line}} {{message}}',
         'format': '{{method}}: {{datetime}} {{message}}',
         'preprocess' :  function(data){
