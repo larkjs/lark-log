@@ -27,14 +27,20 @@ var config  = {
         'name': 'app',
         'log_type': 'daily',
         'methods' : ['perform', 'request'],
+        /* disabled by default;
+        'logPathFormat' : '{{name}}.{{split}}.log',
+        'splitFormat' : 'yyyymmdd',
+        */
         'format': '{{method}}: {{datetime}} {{message}}',
         'maxLength': 2000,
     },
     'info': {
         'root': './logs',
         'name': 'app',
-        'logPathFormat' : '{{root}}/{{prefix}}.{{date}}.info.log',
+        /* disabled by default;
+        'logPathFormat' : '{{name}}.info.{{split}}.log',
         'splitFormat' : 'yyyymmdd',
+        */
         'methods' : ['info', 'notice', 'warn'],
         'format': '{{method}}: {{datetime}} {{message}}',
         'maxLength': 2000,
@@ -43,7 +49,10 @@ var config  = {
         'root': './logs',
         'name': 'app',
         'method': ['error', 'fatal'],
-        'logPathFormat' : '{{root}}/{{prefix}}.log.wf',
+        /* disabled by default;
+        'logPathFormat' : '{{name}}.{{split}}.log.wf',
+        'splitFormat' : 'yyyymmdd',
+        */
         //'format': '{{datetime}} {{file}}:{{line}} {{message}}',
         'format': '{{method}}: {{datetime}} {{message}}',
         'preprocess' :  function(data){
