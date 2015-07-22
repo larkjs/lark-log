@@ -55,9 +55,6 @@ var config  = {
         */
         //'format': '{{datetime}} {{file}}:{{line}} {{message}}',
         'format': '{{method}}: {{datetime}} {{message}}',
-        'preprocess' :  function(data){
-            data.logid = data.args.logid || 0;
-        },
         'maxLength': 2000,
     }
 }
