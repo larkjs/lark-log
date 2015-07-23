@@ -56,6 +56,11 @@ var config  = {
         //'format': '{{datetime}} {{file}}:{{line}} {{message}}',
         'format': '{{method}}: {{datetime}} {{message}}',
         'maxLength': 2000,
+        /* disabled by default
+        'preprocess': function (message, method, oriArgs) {
+            message.logid =  oriArgs[1] || 0;
+        }
+        */
     }
 }
 
