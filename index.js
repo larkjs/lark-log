@@ -1,9 +1,10 @@
 'use strict';
+
 //@TODO ingerated talkwith in http
 //@TODO print line no in sys log
-var Logger = require('./lib/Logger')
-var default_config = require('./conf/defaults')
-var logging = global.larkLog = (typeof(global.larkLog) == "object") ?
+const Logger = require('./lib/Logger');
+const default_config = require('./conf/defaults');
+const logging = global.larkLog = (typeof(global.larkLog) == "object") ?
     global.larkLog: new Logger(default_config) // Set lark-log as a gloabal variable to facilatate using.
 
 module.exports = {
@@ -20,4 +21,4 @@ module.exports = {
      *
      */
     'middleware': require('./lib/middleware')(logging),
-}
+};
