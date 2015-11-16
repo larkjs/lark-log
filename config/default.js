@@ -54,7 +54,7 @@ export default {
             maxLength: 2000,
         },
         access: {
-            path: 'logs/access.<%- datetime("yyyyMMddhh") %>.log',
+            path: 'logs/access.log',
             format: '<%- method %>: <%- new Date %> <%- content %>',
             maxLength: 2000,
         },

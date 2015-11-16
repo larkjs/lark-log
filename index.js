@@ -17,7 +17,9 @@ const debug = _debug("lark-log");
 class Logger {
     constructor (options) {
         debug("Logger: constructing");
-        this.config = extend(true, {}, defaultConfig);
+        if (!(this.config instanceof Object)) {
+            this.config = extend(true, {}, defaultConfig);
+        }
         if ('string' !== typeof this.config.root) {
             this.config.root = caller();
         }
@@ -34,6 +36,10 @@ class Logger {
                 this.config = {};
             }
             this.config = extend(true, this.config, options);
+        }
+        if (!(this.config instanceof Object)) {
+            debug("Logger: using default options");
+            this.config = extend(true, {}, defaultConfig);
         }
         if ('string' !== typeof this.config.root) {
             this.config.root = caller();
@@ -109,13 +115,13 @@ class Logger {
             if (!(output instanceof BaseOutput)) {
                 throw new Error("Output printer not found!");
             }
-            this[method] = (content) => {
+            this[method] = (content, callback) => {
                 debug("Logger: method " + method + " is called");
                 if (config.level < this.config.level) {
                     debug("Logger: method " + method + " low level, abort printing logs");
                     return;
                 }
-                output.print(content, method);
+                output.print(content, method, callback);
                 return this;
             };
         }

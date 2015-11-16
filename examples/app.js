@@ -25,6 +25,7 @@ logger.error("Printed by error");
 logger.fatal("Printed by fatal");
 
 setTimeout(() => {
-    logger.warn("Printed by warn");
+    logger.perform("Printed by perform after 35s");
+    logger.warn("Printed by warn after 35s");
     logger.close();
-}, 15000);
+}, 35000);
