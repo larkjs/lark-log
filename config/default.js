@@ -50,22 +50,22 @@ export default {
     outputs: {
         console: {
             type: 'console',        
-            format: '{method}: {datetime} {content}',
+            format: '<%- method %>: <%- new Date %> <%- content %>',
             maxLength: 2000,
         },
         access: {
-            path: 'logs/access.{logtime}.log',
-            format: '{method}: {datetime} {content}',
+            path: 'logs/access.<%- datetime("yyyyMMddhh") %>.log',
+            format: '<%- method %>: <%- new Date %> <%- content %>',
             maxLength: 2000,
         },
         info: {
             path: 'logs/app.log',
-            format: '{method}: {datetime} {content}',
+            format: '<%- method %>: <%- new Date %> <%- content %>',
             maxLength: 2000,
         },
         sys: {
             path: 'logs/app.log.wf',
-            format: '{method}: {datetime} {content}',
+            format: '<%- method %>: <%- new Date %> <%- content %>',
             maxLength: 2000,
         },
     }
