@@ -9,8 +9,6 @@ This is Lark.js log module.
 
 ## Useage
 
-[中文版说明](https://github.com/larkjs/lark-log/blob/master/cn.README.md)
-
 ### sample 
 
 ```javascript
