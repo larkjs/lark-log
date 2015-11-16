@@ -14,7 +14,9 @@ This is Lark.js log module.
 ### sample 
 
 ```javascript
-var logging = require('lark-log').logging
+var LarkLogger = require('lark-log');
+
+var logging = new LarkLogger();
 
 logging.info('info message');
 ```
@@ -24,21 +26,29 @@ logging.info('info message');
 
 ```javascript
 
+var LarkLogger = require('lark-log');
+
+var logging = new LarkLogger();
+
 var config = {
-    'daily':{
-        'name': 'larkapp'
-    },
-    'info': {
-        'name': 'larkapp.info'
-    },
-    'sys': {
-        'name': 'larkapp.sys'
+    outputs: {
+        access:{
+            path: 'larkapp.log'
+        },
+        info: {
+            path: 'larkapp.info.log'
+        },
+        sys: {
+            path: 'larkapp.sys.log'
+        }
     }
 };
-var logging = require('lark-log').logging.configure(config);
+
+logging.configure(config);
 
 logger.debug('debug' + Date.now());// write to terminal
 logger.trace('log' + Date.now()); // write to terminal
+logger.request('request' + Date.now());// write to access.log
 logger.info('info' + Date.now());// write to larkapp.info.log
 logger.error('error' + Date.now());//write to larkapp.sys.log
 ```
