@@ -68,6 +68,15 @@ describe('lark-log', () => {
     });
 });
 
+describe('lark-log create', () => {
+    debug('Test: testing lark-log create');
+    it('should return an instance of Logger', done => {
+        const logger = Logger.create();
+        logger.should.be.an.instanceOf(Logger);
+        done();
+    });
+});
+
 describe('lark-log configure', () => {
     debug('Test: testing lark-log configure');
     const logger = new Logger();

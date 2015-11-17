@@ -26,6 +26,9 @@ class Logger {
         this.configure(options);
         debug("Logger: constructing ok");
     }
+    static create (options) {
+        return new Logger(options);
+    }
     configure (options) {
         debug("Logger: configure start");
         if (options instanceof Object) {

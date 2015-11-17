@@ -1,8 +1,8 @@
 {
   "name": "lark-log",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "lark.js log module",
-  "main": "index.js",
+  "main": "loader.js",
   "engines": {
     "node": ">= 5.0.0"
   },

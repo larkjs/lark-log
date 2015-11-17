@@ -179,6 +179,11 @@ var Logger = (function () {
 
             debug("Logger: define methods done");
         }
+    }], [{
+        key: 'create',
+        value: function create(options) {
+            return new Logger(options);
+        }
     }]);
 
     return Logger;

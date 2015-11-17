@@ -119,6 +119,15 @@ describe('lark-log', function () {
     });
 });
 
+describe('lark-log create', function () {
+    debug('Test: testing lark-log create');
+    it('should return an instance of Logger', function (done) {
+        var logger = _2.default.create();
+        logger.should.be.an.instanceOf(_2.default);
+        done();
+    });
+});
+
 describe('lark-log configure', function () {
     debug('Test: testing lark-log configure');
     var logger = new _2.default();
