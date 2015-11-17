@@ -3,30 +3,59 @@
  **/
 'use strict';
 
-import _debug   from 'debug';
-import caller   from 'caller';
-import extend   from 'extend';
-import path     from 'path';
-import BaseOutput     from './lib/BaseOutput';
-import ConsoleOutput  from './lib/ConsoleOutput';
-import FileStreamOutput   from './lib/FileStreamOutput';
-import defaultConfig  from './config/default';
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-const debug = _debug("lark-log");
+var _debug2 = require('debug');
+
+var _debug3 = _interopRequireDefault(_debug2);
+
+var _caller = require('caller');
+
+var _caller2 = _interopRequireDefault(_caller);
+
+var _extend = require('extend');
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _BaseOutput = require('./lib/BaseOutput');
+
+var _BaseOutput2 = _interopRequireDefault(_BaseOutput);
+
+var _ConsoleOutput = require('./lib/ConsoleOutput');
+
+var _ConsoleOutput2 = _interopRequireDefault(_ConsoleOutput);
+
+var _FileStreamOutput = require('./lib/FileStreamOutput');
+
+var _FileStreamOutput2 = _interopRequireDefault(_FileStreamOutput);
+
+var _default = require('./config/default');
+
+var _default2 = _interopRequireDefault(_default);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const debug = (0, _debug3.default)("lark-log");
 
 class Logger {
-    constructor (options) {
+    constructor(options) {
         debug("Logger: constructing");
         if (!(this.config instanceof Object)) {
-            this.config = extend(true, {}, defaultConfig);
+            this.config = (0, _extend2.default)(true, {}, _default2.default);
         }
         if ('string' !== typeof this.config.root) {
-            this.config.root = caller();
+            this.config.root = (0, _caller2.default)();
         }
         this.configure(options);
         debug("Logger: constructing ok");
     }
-    configure (options) {
+    configure(options) {
         debug("Logger: configure start");
         if (options instanceof Object) {
             debug("Logger: using options");
@@ -35,19 +64,19 @@ class Logger {
                 delete options.default;
                 this.config = {};
             }
-            this.config = extend(true, this.config, options);
+            this.config = (0, _extend2.default)(true, this.config, options);
         }
         if (!(this.config instanceof Object)) {
             debug("Logger: using default options");
-            this.config = extend(true, {}, defaultConfig);
+            this.config = (0, _extend2.default)(true, {}, _default2.default);
         }
         if ('string' !== typeof this.config.root) {
-            this.config.root = caller();
+            this.config.root = (0, _caller2.default)();
         }
         this.defineMethods();
         return this;
     }
-    clear () {
+    clear() {
         debug("Logger: clearing all methods generated last time when defineMethods was called");
         for (let method in this) {
             if (this[method] instanceof Function && !Logger.prototype[method]) {
@@ -56,21 +85,21 @@ class Logger {
         }
 
         debug("Logger: clearing output logger");
-        for (let output in this.outputs || {} ) {
+        for (let output in this.outputs || {}) {
             this.outputs[output].close();
         }
 
         this.outputs = {};
-        
+
         return this;
     }
-    close () {
+    close() {
         debug("Logger: closing");
         this.clear();
         delete this.config;
         return this;
     }
-    defineMethods () {
+    defineMethods() {
         debug("Logger: define methods by config");
 
         if (!(this.config.methods instanceof Object) || !(this.config.outputs instanceof Object)) {
@@ -92,16 +121,16 @@ class Logger {
             let outputPrinter = null;
             switch (config.type.toLowerCase()) {
                 case 'console':
-                    outputPrinter = new ConsoleOutput(config);
+                    outputPrinter = new _ConsoleOutput2.default(config);
                     break;
                 case 'stream':
                 default:
                     config.type = 'filestream';
-                    if (!path.isAbsolute(config.path)) {
+                    if (!_path2.default.isAbsolute(config.path)) {
                         debug("Logger: change relative path to absolute path");
-                        config.path = path.join(path.dirname(this.config.root), config.path);
+                        config.path = _path2.default.join(_path2.default.dirname(this.config.root), config.path);
                     }
-                    outputPrinter = new FileStreamOutput(config);
+                    outputPrinter = new _FileStreamOutput2.default(config);
                     break;
             }
             debug("Logger: add output printer " + output + ' as a ' + config.type + ' printer');
@@ -110,9 +139,9 @@ class Logger {
 
         debug("Logger: add methods by config");
         for (let method in this.config.methods) {
-            let config = extend(true, {}, this.config.methods[method]);
+            let config = (0, _extend2.default)(true, {}, this.config.methods[method]);
             let output = this.outputs[config.output];
-            if (!(output instanceof BaseOutput)) {
+            if (!(output instanceof _BaseOutput2.default)) {
                 throw new Error("Output printer not found!");
             }
             this[method] = (content, callback) => {
@@ -130,6 +159,6 @@ class Logger {
     }
 }
 
-export default Logger;
+exports.default = Logger;
 
 debug("Logger: load ok");
