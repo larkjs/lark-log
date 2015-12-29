@@ -59,6 +59,16 @@ var BaseOutput = (function () {
             if (false === this._accessible) {
                 throw new Error("Closed output can not print any logs");
             }
+            if (content instanceof Buffer) {
+                content = content.toString();
+            }
+            if (content instanceof Object) {
+                try {
+                    content = JSON.stringify(content);
+                } catch (e) {
+                    throw new Error("Can not convert log content from object to json: " + e.message);
+                }
+            }
             if ('string' !== typeof content) {
                 throw new Error("Log content must be a string");
             }

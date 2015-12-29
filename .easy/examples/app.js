@@ -20,7 +20,7 @@ logger.trace("Printed by trace");
 
 debug("Example: print access logs");
 logger.request("Printed by request");
-logger.perform("Printed by perform");
+logger.response("Printed by response");
 
 debug("Example: print info logs");
 logger.info("Printted by info");

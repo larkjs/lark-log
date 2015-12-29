@@ -199,7 +199,7 @@ describe('lark-log file stream output', function () {
 
     var methodsAll = {
         access: {
-            methods: ['request', 'perform'],
+            methods: ['request', 'response'],
             log: 'access.log'
         },
         info: {

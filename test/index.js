@@ -130,7 +130,7 @@ describe('lark-log file stream output', () => {
     
     let methodsAll = {
         access: {
-            methods: ['request', 'perform'],
+            methods: ['request', 'response'],
             log: 'access.log',
         },
         info: {
