@@ -7,6 +7,10 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
+var _ = require('..');
+
+var _2 = _interopRequireDefault(_);
+
 var _middleware = require('../middleware');
 
 var _middleware2 = _interopRequireDefault(_middleware);
@@ -25,16 +29,19 @@ var app = new _Koa2.default();
 
 app.use((0, _middleware2.default)());
 app.use((function () {
-    var ref = _asyncToGenerator(function* (ctx, next) {
-        ctx.logger.notice('This is log');
-        yield next();
-    });
+  var ref = _asyncToGenerator(function* (ctx, next) {
+    debug("Example: print log with context");
+    ctx.logger.notice('This is log');
+    debug("Example: print log without context");
+    _2.default.instance().notice('This is log 2');
+    yield next();
+  });
 
-    return function (_x, _x2) {
-        return ref.apply(this, arguments);
-    };
+  return function (_x, _x2) {
+    return ref.apply(this, arguments);
+  };
 })());
 
 app.listen(3000, function () {
-    console.log("Koa app listening at 3000...");
+  console.log("Koa app listening at 3000...");
 });

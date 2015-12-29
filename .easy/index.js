@@ -179,15 +179,36 @@ var Logger = (function () {
 
             debug("Logger: define methods done");
         }
+    }, {
+        key: 'saveInstance',
+        value: function saveInstance() {
+            var name = arguments.length <= 0 || arguments[0] === undefined ? 'default' : arguments[0];
+
+            debug("Logger: saving instance");
+            if (savedInstances[name]) {
+                throw new Error('Fail to save log instance as "' + name + '" : name duplicated with existing instance');
+            }
+            savedInstances[name] = this;
+            return this;
+        }
     }], [{
         key: 'create',
         value: function create(options) {
             return new Logger(options);
         }
+    }, {
+        key: 'instance',
+        value: function instance() {
+            var name = arguments.length <= 0 || arguments[0] === undefined ? 'default' : arguments[0];
+
+            return savedInstances[name] || null;
+        }
     }]);
 
     return Logger;
 })();
+
+var savedInstances = {};
 
 exports.default = Logger;
 

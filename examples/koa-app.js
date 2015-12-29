@@ -4,6 +4,7 @@
 'use strict';
 
 import _debug   from 'debug';
+import Log 		from '..';
 import log      from '../middleware';
 import Koa      from 'Koa';
 
@@ -13,7 +14,10 @@ const app   = new Koa();
 
 app.use(log());
 app.use(async (ctx, next) => {
+	debug("Example: print log with context");
     ctx.logger.notice('This is log');
+    debug("Example: print log without context");
+    Log.instance().notice('This is log 2');
     await next();
 });
 

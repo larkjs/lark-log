@@ -11,12 +11,9 @@ import Log    from './';
 
 const debug = _debug("lark-log");
 
-function middleware (options = {}, app = null) {
+function middleware (options = {}) {
     debug("Middleware: create middleware");
-    const logger = new Log(options);
-    if (app && !app.logger) {
-        app.logger = logger;
-    }
+    const logger = new Log(options).saveInstance();
     return async (ctx, next) => {
         debug("Middleware: ctx.log enabled!");
         const starttime = Date.now();

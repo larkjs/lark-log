@@ -32,13 +32,9 @@ var debug = (0, _debug3.default)("lark-log");
 
 function middleware() {
     var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-    var app = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
     debug("Middleware: create middleware");
-    var logger = new _2.default(options);
-    if (app && !app.logger) {
-        app.logger = logger;
-    }
+    var logger = new _2.default(options).saveInstance();
     return (function () {
         var ref = _asyncToGenerator(function* (ctx, next) {
             debug("Middleware: ctx.log enabled!");
@@ -61,7 +57,7 @@ function middleware() {
             });
         });
 
-        return function (_x3, _x4) {
+        return function (_x2, _x3) {
             return ref.apply(this, arguments);
         };
     })();
