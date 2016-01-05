@@ -5,7 +5,6 @@
 'use strict';
 
 import _debug from 'debug';
-import caller from 'caller';
 import path   from 'path';
 import Log    from './';
 
