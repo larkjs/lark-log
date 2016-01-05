@@ -10,6 +10,9 @@ import Koa      from 'Koa';
 
 const debug = _debug("lark-log");
 
+debug("Example: set main module to this module for test");
+process.mainModule = module;
+
 const app   = new Koa();
 
 app.use(log());

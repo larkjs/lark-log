@@ -4,8 +4,6 @@
 
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -28,9 +26,7 @@ var _dateFormat2 = _interopRequireDefault(_dateFormat);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var debug = (0, _debug3.default)("lark-log");
+const debug = (0, _debug3.default)("lark-log");
 
 /**
  * BaseOutput, abstract
@@ -39,11 +35,8 @@ var debug = (0, _debug3.default)("lark-log");
  * |- process([object] values);
  * |- write([string] content); 
  **/
-
-var BaseOutput = (function () {
-    function BaseOutput(config) {
-        _classCallCheck(this, BaseOutput);
-
+class BaseOutput {
+    constructor(config) {
         debug("BaseOutput: constructing");
         this.config = (0, _extend2.default)(true, {}, config);
         if (this.init instanceof Function) {
@@ -51,79 +44,67 @@ var BaseOutput = (function () {
         }
         debug("BaseOutput: constructing ok");
     }
-
-    _createClass(BaseOutput, [{
-        key: 'print',
-        value: function print(content, method, callback) {
-            debug("BaseOutput: executing");
-            if (false === this._accessible) {
-                throw new Error("Closed output can not print any logs");
+    print(content, method, callback) {
+        debug("BaseOutput: executing");
+        if (false === this._accessible) {
+            throw new Error("Closed output can not print any logs");
+        }
+        if (content instanceof Buffer) {
+            content = content.toString();
+        }
+        if (content instanceof Object) {
+            try {
+                content = JSON.stringify(content);
+            } catch (e) {
+                throw new Error("Can not convert log content from object to json: " + e.message);
             }
-            if (content instanceof Buffer) {
-                content = content.toString();
-            }
-            if (content instanceof Object) {
-                try {
-                    content = JSON.stringify(content);
-                } catch (e) {
-                    throw new Error("Can not convert log content from object to json: " + e.message);
+        }
+        if ('string' !== typeof content) {
+            throw new Error("Log content must be a string");
+        }
+        if (!(this.write instanceof Function)) {
+            throw new Error("BaseOutput instance must have method write");
+        }
+        debug("BaseOutput: checking ok");
+        let values = {
+            method: method.toUpperCase(),
+            content: content,
+            datetime: format => {
+                const now = new Date();
+                if ('string' !== typeof format) {
+                    return now.toString();
                 }
+                return (0, _dateFormat2.default)(format, now);
             }
-            if ('string' !== typeof content) {
-                throw new Error("Log content must be a string");
-            }
-            if (!(this.write instanceof Function)) {
-                throw new Error("BaseOutput instance must have method write");
-            }
-            debug("BaseOutput: checking ok");
-            var values = {
-                method: method.toUpperCase(),
-                content: content,
-                datetime: function datetime(format) {
-                    var now = new Date();
-                    if ('string' !== typeof format) {
-                        return now.toString();
-                    }
-                    return (0, _dateFormat2.default)(format, now);
-                }
-            };
-            debug("BaseOutput: preparing content");
-            if (this.process instanceof Function) {
-                values = this.process(values) || values;
-            }
-            content = this.parse(values);
-            if (!(callback instanceof Function)) {
-                callback = function (err) {};
-            }
-            this.write(content, values, callback);
-            return this;
+        };
+        debug("BaseOutput: preparing content");
+        if (this.process instanceof Function) {
+            values = this.process(values) || values;
         }
-    }, {
-        key: 'process',
-        value: function process(values) {
-            //absolute method
+        content = this.parse(values);
+        if (!(callback instanceof Function)) {
+            callback = err => {};
         }
-    }, {
-        key: 'close',
-        value: function close() {
-            this._accessible = false;
-            return this;
+        this.write(content, values, callback);
+        return this;
+    }
+    process(values) {
+        //absolute method
+    }
+    close() {
+        this._accessible = false;
+        return this;
+    }
+    parse(values) {
+        debug("BaseOutput: parse values into log message in format");
+        if ('string' !== typeof this.config.format) {
+            debug("BaseOutput: format undefined, do nothing");
+            return values.content;
         }
-    }, {
-        key: 'parse',
-        value: function parse(values) {
-            debug("BaseOutput: parse values into log message in format");
-            if ('string' !== typeof this.config.format) {
-                debug("BaseOutput: format undefined, do nothing");
-                return values.content;
-            }
-            debug("BaseOutput: parse with ejs engine");
-            return _ejs2.default.render(this.config.format, values);
-        }
-    }]);
-
-    return BaseOutput;
-})();
+        debug("BaseOutput: parse with ejs engine");
+        return _ejs2.default.render(this.config.format, values);
+    }
+}
 
 exports.default = BaseOutput;
 

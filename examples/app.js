@@ -6,6 +6,9 @@ import Logger   from '..';
 const debug  = _debug("lark-log");
 const logger = new Logger();
 
+debug("Example: set main module to this module for test");
+process.mainModule = module;
+
 debug("Example: print console logs");
 logger.log("Printed by log");
 logger.debug("Printed by debug");

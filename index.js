@@ -4,7 +4,6 @@
 'use strict';
 
 import _debug   from 'debug';
-import caller   from 'caller';
 import extend   from 'extend';
 import path     from 'path';
 import BaseOutput     from './lib/BaseOutput';
@@ -21,7 +20,7 @@ class Logger {
             this.config = extend(true, {}, defaultConfig);
         }
         if ('string' !== typeof this.config.root) {
-            this.config.root = caller();
+            this.config.root = process.mainModule.filename;
         }
         this.configure(options);
         debug("Logger: constructing ok");
@@ -45,7 +44,7 @@ class Logger {
             this.config = extend(true, {}, defaultConfig);
         }
         if ('string' !== typeof this.config.root) {
-            this.config.root = caller();
+            this.config.root = process.mainModule.filename;
         }
         this.defineMethods();
         return this;

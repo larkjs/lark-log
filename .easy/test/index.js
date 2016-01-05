@@ -56,59 +56,70 @@ var _default2 = _interopRequireDefault(_default);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var debug = (0, _debug3.default)('lark-log');
+const debug = (0, _debug3.default)('lark-log');
+
+process.mainModule = module;
 
 debug('Test: starting test lark-log');
 
-describe('lark-log', function () {
+describe('lark-log', () => {
     debug('Test: testing lark-log');
-    var logger = new _2.default();
-    it('should be an instance of Logger', function (done) {
+    const logger = new _2.default();
+    it('should be an instance of Logger', done => {
         debug('Test: testing lark log should be an instance of Logger');
         logger.should.be.an.instanceOf(_2.default);
         done();
     });
-    it('should have property config which is equal with default config', function (done) {
+    it('should have property config which is equal with default config', done => {
         debug('Test: testing lark log should have default config');
         logger.should.have.property('config').which.is.an.instanceOf(Object);
-        var expect = parseConfig((0, _extend2.default)(true, {}, _default2.default));
+        const expect = parseConfig((0, _extend2.default)(true, {}, _default2.default));
         (0, _deepEql2.default)(logger.config, expect).should.be.exactly(true);
         done();
     });
-    it('should have method configure, clear, close, and defineMethods', function (done) {
+    it('should have method configure, clear, close, and defineMethods', done => {
         debug('Test: testing lark log should have reserved methods');
-        var methods = ['configure', 'clear', 'close', 'defineMethods'];
-        for (var _iterator = methods, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-            var _ref;
+        const methods = ['configure', 'clear', 'close', 'defineMethods'];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-            if (_isArray) {
-                if (_i >= _iterator.length) break;
-                _ref = _iterator[_i++];
-            } else {
-                _i = _iterator.next();
-                if (_i.done) break;
-                _ref = _i.value;
+        try {
+            for (var _iterator = methods[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                let method = _step.value;
+
+                logger.should.have.property(method).which.is.an.instanceOf(Function);
             }
-
-            var method = _ref;
-
-            logger.should.have.property(method).which.is.an.instanceOf(Function);
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
         }
+
         done();
     });
-    it('should have methods defined in config', function (done) {
+    it('should have methods defined in config', done => {
         debug('Test: testing lark log should have methods defined in config');
-        for (var method in logger.config.methods) {
+        for (let method in logger.config.methods) {
             logger.should.have.property(method).which.is.an.instanceOf(Function);
         }
         done();
     });
-    it('should have outputs defined in config', function (done) {
+    it('should have outputs defined in config', done => {
         debug('Test: testing lark log should have outputs defined in config');
         logger.should.have.property('outputs').which.is.an.instanceOf(Object);
         Object.keys(logger.outputs).length.should.be.exactly(Object.keys(logger.config.outputs).length);
-        for (var output in logger.config.outputs) {
-            var Class = _FileStreamOutput2.default;
+        for (let output in logger.config.outputs) {
+            let Class = _FileStreamOutput2.default;
             if (output === 'console') {
                 Class = _ConsoleOutput2.default;
             }
@@ -119,20 +130,20 @@ describe('lark-log', function () {
     });
 });
 
-describe('lark-log create', function () {
+describe('lark-log create', () => {
     debug('Test: testing lark-log create');
-    it('should return an instance of Logger', function (done) {
-        var logger = _2.default.create();
+    it('should return an instance of Logger', done => {
+        const logger = _2.default.create();
         logger.should.be.an.instanceOf(_2.default);
         done();
     });
 });
 
-describe('lark-log configure', function () {
+describe('lark-log configure', () => {
     debug('Test: testing lark-log configure');
-    var logger = new _2.default();
-    it('should have property config which is equal with customized config', function (done) {
-        var config = {
+    const logger = new _2.default();
+    it('should have property config which is equal with customized config', done => {
+        const config = {
             level: 3,
             outputs: {
                 access: {
@@ -140,7 +151,7 @@ describe('lark-log configure', function () {
                 }
             }
         };
-        var expect = parseConfig((0, _extend2.default)(true, (0, _extend2.default)(true, {}, _default2.default), config));
+        const expect = parseConfig((0, _extend2.default)(true, (0, _extend2.default)(true, {}, _default2.default), config));
         logger.configure(config);
         debug('Test: testing lark-log configure result');
         (0, _deepEql2.default)(logger.config, expect).should.be.exactly(true);
@@ -148,56 +159,59 @@ describe('lark-log configure', function () {
     });
 });
 
-describe('lark-config console output', function () {
+describe('lark-config console output', () => {
     debug('Test: testing lark-log console output');
-    var logger = new _2.default();
-    var methods = ['debug', 'log', 'trace'];
+    const logger = new _2.default();
+    const methods = ['debug', 'log', 'trace'];
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
 
-    var _loop = function _loop(method) {
-        it('should print logs by ' + method, function (done) {
-            debug('Test: testing lark-log console output result by ' + method);
-            var message = 'printed by logger.' + method;
-            var out = _testConsole.stdout.inspectSync(function () {
-                logger[method](message);
+    try {
+        for (var _iterator2 = methods[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            let method = _step2.value;
+
+            it('should print logs by ' + method, done => {
+                debug('Test: testing lark-log console output result by ' + method);
+                const message = 'printed by logger.' + method;
+                const out = _testConsole.stdout.inspectSync(() => {
+                    logger[method](message);
+                });
+                out.should.be.an.instanceOf(Array).with.lengthOf(1);
+                out[0].should.be.an.instanceOf(String);
+                const regexp = makeLogRegExp(method, message);
+                (!!out[0].match(makeLogRegExp(method, message))).should.be.exactly(true);
+                done();
             });
-            out.should.be.an.instanceOf(Array).with.lengthOf(1);
-            out[0].should.be.an.instanceOf(String);
-            var regexp = makeLogRegExp(method, message);
-            (!!out[0].match(makeLogRegExp(method, message))).should.be.exactly(true);
-            done();
-        });
-    };
-
-    for (var _iterator2 = methods, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-        var _ref2;
-
-        if (_isArray2) {
-            if (_i2 >= _iterator2.length) break;
-            _ref2 = _iterator2[_i2++];
-        } else {
-            _i2 = _iterator2.next();
-            if (_i2.done) break;
-            _ref2 = _i2.value;
         }
-
-        var method = _ref2;
-
-        _loop(method);
+    } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+            }
+        } finally {
+            if (_didIteratorError2) {
+                throw _iteratorError2;
+            }
+        }
     }
 });
 
-process.on('exit', function () {
+process.on('exit', () => {
     debug('Test: clearing test logs dir');
-    var logDir = _path2.default.join(__dirname, 'logs');
+    const logDir = _path2.default.join(__dirname, 'logs');
     _child_process2.default.execSync('rm -rf ' + logDir);
 });
 
-describe('lark-log file stream output', function () {
+describe('lark-log file stream output', () => {
     debug('Test: testing lark-log file stream output');
-    var logger = new _2.default();
-    var logDir = _path2.default.join(__dirname, 'logs');
+    const logger = new _2.default();
+    const logDir = _path2.default.join(__dirname, 'logs');
 
-    var methodsAll = {
+    let methodsAll = {
         access: {
             methods: ['request', 'response'],
             log: 'access.log'
@@ -212,60 +226,61 @@ describe('lark-log file stream output', function () {
         }
     };
 
-    var _loop2 = function _loop2(output) {
+    for (let output in methodsAll) {
         debug('Test: testing lark-log file stream output to ' + output + ' log');
-        var methods = methodsAll[output].methods;
-        var log = methodsAll[output].log;
+        const methods = methodsAll[output].methods;
+        const log = methodsAll[output].log;
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
 
-        var _loop3 = function _loop3(method) {
-            it('should print file logs by ' + method, function (done) {
-                debug('Test: testing lark-log file stream output result to ' + output + ' log by ' + method);
-                var logPath = _path2.default.join(logDir, log);
-                debug("Test: clearing existing " + output + " log");
-                try {
-                    _child_process2.default.execSync('1>/dev/null 2>&1 echo "" > ' + logPath);
-                } catch (e) {
-                    debug("Test: clearing failed, error message : " + e.message);
-                }
-                var message = 'printed by logger.' + method;
+        try {
+            for (var _iterator3 = methods[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                let method = _step3.value;
 
-                logger[method](message, function (err) {
-                    var out = _fs2.default.readFileSync(logPath).toString();
-                    (!!out.match(makeLogRegExp(method, message))).should.be.exactly(true);
-                    done();
+                it('should print file logs by ' + method, done => {
+                    debug('Test: testing lark-log file stream output result to ' + output + ' log by ' + method);
+                    const logPath = _path2.default.join(logDir, log);
+                    debug("Test: clearing existing " + output + " log");
+                    try {
+                        _child_process2.default.execSync('1>/dev/null 2>&1 echo "" > ' + logPath);
+                    } catch (e) {
+                        debug("Test: clearing failed, error message : " + e.message);
+                    }
+                    const message = 'printed by logger.' + method;
+
+                    logger[method](message, err => {
+                        const out = _fs2.default.readFileSync(logPath).toString();
+                        (!!out.match(makeLogRegExp(method, message))).should.be.exactly(true);
+                        done();
+                    });
                 });
-            });
-        };
-
-        for (var _iterator3 = methods, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
-            var _ref3;
-
-            if (_isArray3) {
-                if (_i3 >= _iterator3.length) break;
-                _ref3 = _iterator3[_i3++];
-            } else {
-                _i3 = _iterator3.next();
-                if (_i3.done) break;
-                _ref3 = _i3.value;
             }
+        } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                    _iterator3.return();
+                }
+            } finally {
+                if (_didIteratorError3) {
+                    throw _iteratorError3;
+                }
+            }
+        }
 
-            var method = _ref3;
-
-            _loop3(method);
-        };
-    };
-
-    for (var output in methodsAll) {
-        _loop2(output);
+        ;
     }
 });
 
-describe('lark-log close', function () {
+describe('lark-log close', () => {
     debug('Test: testing lark-log close');
-    var logger = new _2.default();
+    const logger = new _2.default();
     logger.close();
-    it('should throw if print', function (done) {
-        var error = null;
+    it('should throw if print', done => {
+        let error = null;
         try {
             logger.log("printed after closed!");
         } catch (e) {
@@ -274,14 +289,14 @@ describe('lark-log close', function () {
         (0, _should2.default)(error).be.an.instanceOf(Error);
         done();
     });
-    it('should not throw if configured again', function (done) {
+    it('should not throw if configured again', done => {
         logger.configure();
-        var error = null;
-        var out = null;
-        var method = 'log';
-        var message = 'printed after closed!';
+        let error = null;
+        let out = null;
+        const method = 'log';
+        const message = 'printed after closed!';
         try {
-            out = _testConsole.stdout.inspectSync(function () {
+            out = _testConsole.stdout.inspectSync(() => {
                 logger[method](message);
             });
         } catch (e) {
@@ -290,7 +305,7 @@ describe('lark-log close', function () {
         (0, _should2.default)(error).be.an.be.exactly(null);
         (0, _should2.default)(out).be.an.instanceOf(Array).with.lengthOf(1);
         out[0].should.be.an.instanceOf(String);
-        var regexp = makeLogRegExp(method, message);
+        const regexp = makeLogRegExp(method, message);
         (!!out[0].match(makeLogRegExp(method, message))).should.be.exactly(true);
         done();
     });
@@ -298,8 +313,8 @@ describe('lark-log close', function () {
 
 function parseConfig(config) {
     config.root = module.filename;
-    for (var output in config.outputs) {
-        var item = config.outputs[output];
+    for (let output in config.outputs) {
+        let item = config.outputs[output];
         if ('string' !== typeof item.type) {
             item.type = 'filestream';
         }
