@@ -24,7 +24,6 @@
     },
     "homepage": "https://github.com/larkjs/lark-log",
     "dependencies": {
-        "caller": "^1.0.1",
         "date-format": "0.0.2",
         "debug": "^2.2.0",
         "ejs": "^2.3.4",
