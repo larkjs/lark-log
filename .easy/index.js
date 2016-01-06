@@ -19,6 +19,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _saveInstance = require('save-instance');
+
+var _saveInstance2 = _interopRequireDefault(_saveInstance);
+
 var _BaseOutput = require('./lib/BaseOutput');
 
 var _BaseOutput2 = _interopRequireDefault(_BaseOutput);
@@ -156,25 +160,8 @@ class Logger {
 
         debug("Logger: define methods done");
     }
-    saveInstance() {
-        let name = arguments.length <= 0 || arguments[0] === undefined ? 'default' : arguments[0];
-
-        debug("Logger: saving instance");
-        if (savedInstances[name]) {
-            throw new Error('Fail to save log instance as "' + name + '" : name duplicated with existing instance');
-        }
-        savedInstances[name] = this;
-        return this;
-    }
-    static instance() {
-        let name = arguments.length <= 0 || arguments[0] === undefined ? 'default' : arguments[0];
-
-        return savedInstances[name] || null;
-    }
 }
-
-const savedInstances = {};
-
-exports.default = Logger;
+(0, _saveInstance2.default)(Logger);
 
 debug("Logger: load ok");
+exports.default = Logger;

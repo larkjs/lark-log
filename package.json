@@ -28,7 +28,8 @@
         "debug": "^2.2.0",
         "ejs": "^2.3.4",
         "extend": "^3.0.0",
-        "mkdirp": "^0.5.1"
+        "mkdirp": "^0.5.1",
+        "save-instance": "0.0.3"
     },
     "devDependencies": {
         "chalk": "^1.1.1",

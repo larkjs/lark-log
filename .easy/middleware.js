@@ -12,10 +12,6 @@ var _debug2 = require('debug');
 
 var _debug3 = _interopRequireDefault(_debug2);
 
-var _caller = require('caller');
-
-var _caller2 = _interopRequireDefault(_caller);
-
 var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
