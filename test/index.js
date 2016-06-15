@@ -20,6 +20,8 @@ import defaultConfig    from '../config/default';
 
 const debug = _debug('lark-log');
 
+process.mainModule = module;
+
 debug('Test: starting test lark-log');
 
 describe('lark-log', () => {

@@ -4,9 +4,9 @@
 'use strict';
 
 import _debug   from 'debug';
-import caller   from 'caller';
 import extend   from 'extend';
 import path     from 'path';
+import savable  from 'save-instance';
 import BaseOutput     from './lib/BaseOutput';
 import ConsoleOutput  from './lib/ConsoleOutput';
 import FileStreamOutput   from './lib/FileStreamOutput';
@@ -21,7 +21,7 @@ class Logger {
             this.config = extend(true, {}, defaultConfig);
         }
         if ('string' !== typeof this.config.root) {
-            this.config.root = caller();
+            this.config.root = process.mainModule.filename;
         }
         this.configure(options);
         debug("Logger: constructing ok");
@@ -45,7 +45,7 @@ class Logger {
             this.config = extend(true, {}, defaultConfig);
         }
         if ('string' !== typeof this.config.root) {
-            this.config.root = caller();
+            this.config.root = process.mainModule.filename;
         }
         this.defineMethods();
         return this;
@@ -132,7 +132,7 @@ class Logger {
         debug("Logger: define methods done");
     }
 }
-
-export default Logger;
+savable(Logger);
 
 debug("Logger: load ok");
+export default Logger;
