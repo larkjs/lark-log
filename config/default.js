@@ -30,7 +30,7 @@ export default {
             level: 3,
             output: 'access',
         },
-        perform: {
+        response: {
             level: 3,
             output: 'access',
         },
