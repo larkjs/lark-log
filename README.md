@@ -14,9 +14,9 @@ This is Lark.js log module.
 ```javascript
 var LarkLogger = require('lark-log');
 
-var logging = new LarkLogger();
+var logger = new LarkLogger();
 
-logging.info('info message');
+logger.info('info message');
 ```
 
 ### configure
@@ -26,7 +26,7 @@ logging.info('info message');
 
 var LarkLogger = require('lark-log');
 
-var logging = new LarkLogger();
+var logger = new LarkLogger();
 
 var config = {
     outputs: {
@@ -42,7 +42,7 @@ var config = {
     }
 };
 
-logging.configure(config);
+logger.configure(config);
 
 logger.debug('debug' + Date.now());// write to terminal
 logger.trace('log' + Date.now()); // write to terminal
