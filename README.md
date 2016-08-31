@@ -12,9 +12,9 @@ This is Lark.js log module.
 ### sample 
 
 ```javascript
-var LarkLogger = require('lark-log');
+const LarkLogger = require('lark-log');
 
-var logger = new LarkLogger();
+const logger = new LarkLogger();
 
 logger.info('info message');
 ```
@@ -24,11 +24,11 @@ logger.info('info message');
 
 ```javascript
 
-var LarkLogger = require('lark-log');
+const LarkLogger = require('lark-log');
 
-var logger = new LarkLogger();
+const logger = new LarkLogger();
 
-var config = {
+const config = {
     outputs: {
         access:{
             path: 'larkapp.log'
