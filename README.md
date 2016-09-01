@@ -30,7 +30,7 @@ const logger = new LarkLogger();
 // set default to false, or the default config will be loaded
 const logger = new LarkLogger({default: false});
 
-var config = {
+const config = {
     path: "logs",
     defaultType: "file",
     level: 1,
