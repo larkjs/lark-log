@@ -14,15 +14,9 @@ This is Lark.js log module.
 ```javascript
 const LarkLogger = require('lark-log');
 
-<<<<<<< HEAD
 const logger = new LarkLogger();
 
-logger.info('info message');
-=======
-var logger = new LarkLogger();
-
 logger.log("Hello");
->>>>>>> 59cf5f77d2102dfe70b7f3a17f30ca76ef59062a
 ```
 
 ### configure
@@ -31,11 +25,8 @@ logger.log("Hello");
 
 const LarkLogger = require('lark-log');
 
-<<<<<<< HEAD
 const logger = new LarkLogger();
 
-const config = {
-=======
 // set default to false, or the default config will be loaded
 const logger = new LarkLogger({default: false});
 
@@ -57,7 +48,6 @@ var config = {
             output: 'error',
         }
     },
->>>>>>> 59cf5f77d2102dfe70b7f3a17f30ca76ef59062a
     outputs: {
         console:{
             type: 'stdout',
