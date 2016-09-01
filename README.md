@@ -16,11 +16,10 @@ const LarkLogger = require('lark-log');
 
 const logger = new LarkLogger();
 
-logger.info('info message');
+logger.log("Hello");
 ```
 
 ### configure
-
 
 ```javascript
 
@@ -28,27 +27,47 @@ const LarkLogger = require('lark-log');
 
 const logger = new LarkLogger();
 
-const config = {
+// set default to false, or the default config will be loaded
+const logger = new LarkLogger({default: false});
+
+var config = {
+    path: "logs",
+    defaultType: "file",
+    level: 1,
+    methods: {
+        debug: {
+            level: 1,
+            output: 'console',
+        },
+        notice: {
+            level: 2,
+            output: 'system',
+        },
+        error: {
+            level: 3,
+            output: 'error',
+        }
+    },
     outputs: {
-        access:{
-            path: 'larkapp.log'
+        console:{
+            type: 'stdout',
         },
-        info: {
-            path: 'larkapp.info.log'
+        system: {
+            path: 'app.log'
+            format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
         },
-        sys: {
-            path: 'larkapp.sys.log'
+        error: {
+            path: 'app.log.wf'
+            format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
         }
     }
 };
 
 logger.configure(config);
 
-logger.debug('debug' + Date.now());// write to terminal
-logger.trace('log' + Date.now()); // write to terminal
-logger.request('request' + Date.now());// write to access.log
-logger.info('info' + Date.now());// write to larkapp.info.log
-logger.error('error' + Date.now());//write to larkapp.sys.log
+logger.debug('debug');// write "debug " to terminal
+logger.notice('notice');// write "NOTICE: {DATETIME} notice" to app.log, {DATETIME} is just what `new Date()` returns
+logger.error('error');//write to app.log.wf
 ```
 
 [npm-image]: https://img.shields.io/npm/v/lark-log.svg?style=flat-square
