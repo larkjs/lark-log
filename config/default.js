@@ -3,7 +3,9 @@
  **/
 'use strict';
 
-export default {
+module.exports = {
+    path: "logs",
+    defaultType: 'file',
     level: 1,
     methods: {
         debug: {
@@ -11,7 +13,7 @@ export default {
             output: 'console',
         },
         log: {
-            level: 1,
+            level: 2,
             output: 'console',
         },
         trace: {
@@ -20,52 +22,35 @@ export default {
         },
         notice: {
             level: 3,
-            output: 'info',
-        },
-        info: {
-            level: 3,
-            output: 'info',
-        },
-        request: {
-            level: 3,
-            output: 'access',
-        },
-        perform: {
-            level: 3,
-            output: 'access',
+            output: 'system',
         },
         warn: {
             level: 4,
-            output: 'sys',
+            output: 'system',
         },
         error: {
             level: 5,
-            output: 'sys',
+            output: 'error',
         },
         fatal: {
             level: 5,
-            output: 'sys',
+            output: 'error',
         },
     },
     outputs: {
         console: {
-            type: 'console',        
-            format: '<%- method %>: <%- new Date %> <%- content %>',
+            type: 'stdout',
+            format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
             maxLength: 2000,
         },
-        access: {
-            path: 'logs/access.log',
-            format: '<%- method %>: <%- new Date %> <%- content %>',
+        system: {
+            path: 'system.log',
+            format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
             maxLength: 2000,
         },
-        info: {
-            path: 'logs/app.log',
-            format: '<%- method %>: <%- new Date %> <%- content %>',
-            maxLength: 2000,
-        },
-        sys: {
-            path: 'logs/app.log.wf',
-            format: '<%- method %>: <%- new Date %> <%- content %>',
+        error: {
+            path: 'error.log',
+            format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
             maxLength: 2000,
         },
     }
