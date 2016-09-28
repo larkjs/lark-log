@@ -4,6 +4,7 @@ This is Lark.js log module.
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
 [![NPM downloads][downloads-image]][npm-url]
 [![Node.js dependencies][david-image]][david-url]
 
@@ -77,4 +78,6 @@ logger.error('error');//write to app.log.wf
 [downloads-image]: https://img.shields.io/npm/dm/lark-log.svg?style=flat-square
 [david-image]: https://img.shields.io/david/larkjs/lark-log.svg?style=flat-square
 [david-url]: https://david-dm.org/larkjs/lark-log
+[coveralls-image]: https://img.shields.io/codecov/c/github/larkjs/lark-log.svg?style=flat-square
+[coveralls-url]: https://codecov.io/github/larkjs/lark-log
 
