@@ -67,7 +67,7 @@ const config = {
 logger.configure(config);
 
 logger.debug('debug');// write "debug " to terminal
-logger.notice('notice');// write "NOTICE: {DATETIME} notice" to app.log, {DATETIME} is just what `new Date()` returns
+logger.notice('notice');// write "NOTICE: {DATETIME} notice" to app.log, {DATETIME} is in "YYYY-MM-DD HH:II:SS" style
 logger.error('error');//write to app.log.wf
 ```
 
