@@ -35,8 +35,16 @@ describe('instance of LarkLog', () => {
         const logger = new LarkLog();
         let error = {};
         logger.outputs.system.close().then(() => {
-            logger.warn('Fake')
-            .then(() => {
+            let promise = new Promise(resolve => resolve());
+            try {
+                promise = logger.warn('Fake');
+            }
+            catch (error) {
+                console.log(error);
+                error.should.not.be.an.instanceOf(Error);
+                return done();
+            }
+            promise.then(() => {
                 error.should.be.an.instanceOf(Error);
                 done();
             })
