@@ -55,11 +55,11 @@ const config = {
         },
         system: {
             path: 'app.log'
-            format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
+            format: '<%- method %>:\t<%- date("YYYY-MM-DD HH:II:SS") %>\t<%- content %>',
         },
         error: {
             path: 'app.log.wf'
-            format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
+            format: '<%- method %>:\t<%- date("YYYY-MM-DD HH:II:SS") %>\t<%- content %>',
         }
     }
 };
