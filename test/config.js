@@ -34,7 +34,6 @@ describe('create an instance of LarkLog with configs with default configs', () =
         outputs: {
             io: {
                 path: path.join(__dirname, 'logs/io.log'),
-                // format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
                 format: ' ',
                 maxlength: 0,
             },
@@ -104,7 +103,7 @@ describe('create an instance of LarkLog with configs with default configs', () =
 
 describe('create an instance of LarkLog with configs without default configs', () => {
     const myConfig = {
-        default: false,
+        inherit: false,
         path: 'logs/newlogs',
         level: 5,
         methods: {
@@ -116,7 +115,6 @@ describe('create an instance of LarkLog with configs without default configs', (
                 level: 4,
                 output: 'io',
             },
-            hello: null,
         },
         outputs: {
             io: {
@@ -125,11 +123,7 @@ describe('create an instance of LarkLog with configs without default configs', (
                 format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
                 maxLength: 10000,
             },
-            foo: {
-                type: 'undefined-type',
-            },
-            bar: {},
-            what: null,
+            stdout: null,
         }
     };
     const logger = new LarkLog({default: false});
