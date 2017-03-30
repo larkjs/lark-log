@@ -1,6 +1,6 @@
 {
   "name": "lark-log",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Stream logging tool",
   "main": "./lib/Logger.js",
   "engines": {
@@ -28,9 +28,9 @@
     "date-format": "0.0.2",
     "ejs": "^2.3.4",
     "extend": "^3.0.0",
-    "lark-utils": "0.0.2",
     "lodash": "^4.15.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "vi-misc": "^1.2.0"
   },
   "devDependencies": {
     "eslint": "^3.18.0",
