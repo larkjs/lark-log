@@ -1,5 +1,6 @@
 'use strict';
 
+require('debug');
 const Logger  = require('..');
 
 const logger = new Logger();

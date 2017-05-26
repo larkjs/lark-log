@@ -3,7 +3,6 @@
  **/
 'use strict';
 
-const debug   = require('debug')('lark-log.test');
 const cp      = require('child_process');
 const fs      = require('fs');
 const path    = require('path');
@@ -12,8 +11,6 @@ const LarkLog = require('..');
 const Output  = require('../lib/Output');
 
 const defaultConfig = require('../config/default.js');
-
-debug('loading ...');
 
 describe('create an instance of LarkLog with configs with default configs', () => {
     const myConfig = {
@@ -183,5 +180,3 @@ describe('create an instance of LarkLog with configs without default configs', (
         done();
     });
 });
-
-debug('loaded!');

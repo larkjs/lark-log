@@ -5,7 +5,6 @@
 
 process.mainModule = module;
 
-const debug   = require('debug')('lark-log.test');
 const cp      = require('child_process');
 const fs      = require('fs');
 const path    = require('path');
@@ -16,12 +15,10 @@ const Output  = require('../lib/Output');
 
 const config = require('../config/default.js');
 
-debug('loading ...');
-
 describe('print logs', () => {
     const logger = new LarkLog();
 
-    it('should print in stdout', done => {
+    it('should print in stdout', async () => {
         const inspect = stdout.inspect();
         logger.debug('This is DEBUG');
         logger.log('This is LOG');
@@ -44,33 +41,25 @@ describe('print logs', () => {
         line = lines[2].split('\t').map(o => o.trim());
         line[0].should.be.exactly('TRACE:');
         line[2].should.be.exactly('This is TRACE');
-
-        done();
     });
 
-    it('should print in log files system.log', done => {
+    it('should print in log files system.log', async () => {
         const originalContent = fs.readFileSync(path.join(__dirname, 'logs/system.log')).toString();
 
-        Promise.all([
-            logger.notice('This is NOTICE'),
-            logger.warn('This is WARN'),
-        ]).then(() => {
-            const addedContent = fs.readFileSync(path.join(__dirname, 'logs/system.log')).toString().slice(originalContent.length);
+        await logger.notice('This is NOTICE');
+        await logger.warn('This is WARN');
 
-            const lines = addedContent.split('\n');
+        const addedContent = fs.readFileSync(path.join(__dirname, 'logs/system.log')).toString().slice(originalContent.length);
 
-            let line = null;
-            line = lines[0].split('\t').map(o => o.trim());
-            line[0].should.be.exactly('NOTICE:');
-            line[2].should.be.exactly('This is NOTICE');
+        const lines = addedContent.split('\n');
 
-            line = lines[1].split('\t').map(o => o.trim());
-            line[0].should.be.exactly('WARN:');
-            line[2].should.be.exactly('This is WARN');
+        let line = null;
+        line = lines[0].split('\t').map(o => o.trim());
+        line[0].should.be.exactly('NOTICE:');
+        line[2].should.be.exactly('This is NOTICE');
 
-            done();
-        });
+        line = lines[1].split('\t').map(o => o.trim());
+        line[0].should.be.exactly('WARN:');
+        line[2].should.be.exactly('This is WARN');
     });
 });
-
-debug('loaded!');
