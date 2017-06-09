@@ -40,18 +40,18 @@ module.exports = {
     outputs: {
         console: {
             type: 'stdout',
-            format: '<%- method %>:\t<%- date("yyyy-mm-dd hh:MM:ss") %>\t<%- content %>',
-            maxLength: 2000,
+            format: info => `${info.method}:\t<${info.date("yyyy-mm-dd hh:MM:ss")}\t${info.content}`,
+            maxLength: 10000,
         },
         system: {
             path: 'system.log',
-            format: '<%- method %>:\t<%- date("yyyy-mm-dd hh:MM:ss") %>\t<%- content %>',
-            maxLength: 2000,
+            format: info => `${info.method}:\t<${info.date("yyyy-mm-dd hh:MM:ss")}\t${info.content}`,
+            maxLength: 10000,
         },
         error: {
             path: 'error.log',
-            format: '<%- method %>:\t<%- date("yyyy-mm-dd hh:MM:ss") %>\t<%- content %>',
-            maxLength: 2000,
+            format: info => `${info.method}:\t<${info.date("yyyy-mm-dd hh:MM:ss")}\t${info.content}`,
+            maxLength: 10000,
         },
     }
 };

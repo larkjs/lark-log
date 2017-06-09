@@ -44,12 +44,13 @@ describe('print logs', () => {
     });
 
     it('should print in log files system.log', async () => {
-        const originalContent = fs.readFileSync(path.join(__dirname, 'logs/system.log')).toString();
+        let originalContent = fs.readFileSync(path.join(__dirname, 'logs/system.log')).toString();
 
         await logger.notice('This is NOTICE');
         await logger.warn('This is WARN');
 
-        const addedContent = fs.readFileSync(path.join(__dirname, 'logs/system.log')).toString().slice(originalContent.length);
+        let addedContent = fs.readFileSync(path.join(__dirname, 'logs/system.log')).toString();
+        addedContent = addedContent.slice(originalContent.length);
 
         const lines = addedContent.split('\n');
 
@@ -61,5 +62,26 @@ describe('print logs', () => {
         line = lines[1].split('\t').map(o => o.trim());
         line[0].should.be.exactly('WARN:');
         line[2].should.be.exactly('This is WARN');
+    });
+
+    it('should print in log files error.log', async () => {
+        let originalContent = fs.readFileSync(path.join(__dirname, 'logs/error.log')).toString();
+
+        await logger.error('This is ERROR');
+        await logger.fatal('This is FATAL');
+
+        let addedContent = fs.readFileSync(path.join(__dirname, 'logs/error.log')).toString();
+        addedContent = addedContent.slice(originalContent.length);
+
+        const lines = addedContent.split('\n');
+
+        let line = null;
+        line = lines[0].split('\t').map(o => o.trim());
+        line[0].should.be.exactly('ERROR:');
+        line[2].should.be.exactly('This is ERROR');
+
+        line = lines[1].split('\t').map(o => o.trim());
+        line[0].should.be.exactly('FATAL:');
+        line[2].should.be.exactly('This is FATAL');
     });
 });

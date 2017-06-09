@@ -14,20 +14,6 @@ const config = require('../config/default.js');
 
 describe('instance of LarkLog', () => {
 
-    it('should throw if output is changed', done => {
-        const logger = new LarkLog();
-        logger.outputs.system = {};
-        let error = {};
-        try {
-            logger.warn('Fake');
-        }
-        catch (e) {
-            error = e;
-        }
-        error.should.be.an.instanceOf(Error);
-        done();
-    });
-
     it('should throw if log file is not writable', done => {
         const logger = new LarkLog();
         let error = {};

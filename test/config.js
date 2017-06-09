@@ -14,10 +14,14 @@ const defaultConfig = require('../config/default.js');
 
 describe('create an instance of LarkLog with configs with default configs', () => {
     const myConfig = {
+        defaultType: null,
         methods: {
             xxx: {
-                level: 2,
                 output: 'stderr',
+            },
+            yyyy: {
+                level: 3,
+                output: 'yyyy',
             },
             access: {
                 level: 4,
@@ -30,6 +34,7 @@ describe('create an instance of LarkLog with configs with default configs', () =
         },
         outputs: {
             io: {
+                type: 'file',
                 path: path.join(__dirname, 'logs/io.log'),
                 format: ' ',
                 maxlength: 0,
@@ -37,10 +42,13 @@ describe('create an instance of LarkLog with configs with default configs', () =
             stderr: {
                 type: 'stderr',
                 format: '<%- content %>',
+            },
+            yyyy: {
             }
         }
     };
     const logger = new LarkLog(myConfig);
+    logger.configure();
 
     it('should return an instance of LarkLog', done => {
         logger.should.be.an.instanceOf(LarkLog);
@@ -49,7 +57,7 @@ describe('create an instance of LarkLog with configs with default configs', () =
 
     it('should have methods as defined in the default config', done => {
         for (const methodName in defaultConfig.methods) {
-            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function).with.lengthOf(1);
+            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function);
         }
         done();
     });
@@ -64,7 +72,7 @@ describe('create an instance of LarkLog with configs with default configs', () =
 
     it('should have methods as defined in the custom config', done => {
         for (const methodName in myConfig.methods) {
-            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function).with.lengthOf(1);
+            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function);
         }
         done();
     });
@@ -123,7 +131,7 @@ describe('create an instance of LarkLog with configs without default configs', (
             stdout: null,
         }
     };
-    const logger = new LarkLog({default: false});
+    const logger = new LarkLog({inherit: false});
     logger.configure(myConfig);
 
     it('should return an instance of LarkLog', done => {
@@ -148,7 +156,7 @@ describe('create an instance of LarkLog with configs without default configs', (
 
     it('should have methods as defined in the custom config', done => {
         for (const methodName in myConfig.methods) {
-            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function).with.lengthOf(1);
+            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function);
         }
         done();
     });
@@ -156,6 +164,9 @@ describe('create an instance of LarkLog with configs without default configs', (
     it('should have outputs as defined in the custom config', done => {
         logger.outputs.should.be.an.instanceOf(Object);
         for (const outputName in myConfig.outputs) {
+            if (myConfig.outputs[outputName] === null) {
+                continue;
+            }
             logger.outputs.should.have.ownProperty(outputName).which.is.an.instanceOf(Output);
         }
         done();

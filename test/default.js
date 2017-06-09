@@ -22,7 +22,7 @@ describe('create an instance of LarkLog', () => {
 
     it('should have methods as defined in the config', done => {
         for (const methodName in config.methods) {
-            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function).with.lengthOf(1);
+            logger.should.have.ownProperty(methodName).which.is.an.instanceOf(Function);
         }
         done();
     });
