@@ -1,6 +1,6 @@
 {
   "name": "lark-log",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Stream logging tool",
   "main": "./lib/Logger.js",
   "engines": {

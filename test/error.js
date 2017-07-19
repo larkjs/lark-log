@@ -37,4 +37,23 @@ describe('instance of LarkLog', () => {
         logger.notice('hello');
         stub.restore();
     });
+
+    it('should throw if invalid output format given', async () => {
+        let error = {};
+        try {
+        const logger = new LarkLog({
+            outputs: {
+                io: {
+                    type: 'file',
+                    path: path.join(__dirname, 'logs/io.log'),
+                    format: '<% here is some wrong code %>',
+                }
+            }
+        });
+        }
+        catch (e) {
+            error = e;
+        }
+        error.should.be.an.instanceof(Error);
+    });
 });

@@ -29,7 +29,6 @@ describe('create an instance of LarkLog with configs with default configs', () =
             },
             dao: {
                 level: 4,
-                format: '<%- method %>:\t<%- date("yyyy-mm-dd hh:MM:ss") %>\t<%- content %>',
                 output: 'io',
             },
         },
@@ -126,7 +125,7 @@ describe('create an instance of LarkLog with configs without default configs', (
             io: {
                 type: 'file',
                 path: 'io.log',
-                format: '<%- method %>:\t<%- date("yyyy-mm-dd hh:MM:ss") %>\t<%- content %>',
+                format: (info) => `${info.method}:\t${info.date("yyyy-mm-dd hh:MM:ss")}\t${info.content}`,
                 maxLength: 10,
             },
             stdout: null,
