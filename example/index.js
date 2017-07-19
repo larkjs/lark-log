@@ -1,7 +1,6 @@
 'use strict';
 
-require('debug');
-const Logger  = require('..');
+const Logger  = require('lark-log');
 
 const logger = new Logger();
 

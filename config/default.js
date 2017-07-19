@@ -40,17 +40,17 @@ module.exports = {
     outputs: {
         console: {
             type: 'stdout',
-            format: info => `${info.method}:\t<${info.date("yyyy-mm-dd hh:MM:ss")}\t${info.content}`,
+            format: '<%- method %>:\t<%- date("yyyy-mm-dd HH:MM:ss")%>\t<%- content %>',
             maxLength: 10000,
         },
         system: {
             path: 'system.log',
-            format: info => `${info.method}:\t<${info.date("yyyy-mm-dd hh:MM:ss")}\t${info.content}`,
+            format: '<%- method %>:\t<%- date("yyyy-mm-dd HH:MM:ss")%>\t<%- content %>',
             maxLength: 10000,
         },
         error: {
             path: 'error.log',
-            format: info => `${info.method}:\t<${info.date("yyyy-mm-dd hh:MM:ss")}\t${info.content}`,
+            format: '<%- method %>:\t<%- date("yyyy-mm-dd HH:MM:ss")%>\t<%- content %>',
             maxLength: 10000,
         },
     }

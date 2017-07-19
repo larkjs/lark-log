@@ -29,6 +29,7 @@ describe('create an instance of LarkLog with configs with default configs', () =
             },
             dao: {
                 level: 4,
+                format: '<%- method %>:\t<%- date("yyyy-mm-dd hh:MM:ss") %>\t<%- content %>',
                 output: 'io',
             },
         },
@@ -110,10 +111,10 @@ describe('create an instance of LarkLog with configs without default configs', (
     const myConfig = {
         inherit: false,
         path: 'logs/newlogs',
-        level: 5,
+        level: 3,
         methods: {
             access: {
-                level: 4,
+                level: 2,
                 output: 'io',
             },
             dao: {
@@ -125,8 +126,8 @@ describe('create an instance of LarkLog with configs without default configs', (
             io: {
                 type: 'file',
                 path: 'io.log',
-                format: '<%- method %>:\t<%- new Date %>\t<%- content %>',
-                maxLength: 10000,
+                format: '<%- method %>:\t<%- date("yyyy-mm-dd hh:MM:ss") %>\t<%- content %>',
+                maxLength: 10,
             },
             stdout: null,
         }
