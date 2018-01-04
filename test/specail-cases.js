@@ -75,4 +75,16 @@ describe('log levels', () => {
         should(message.match(/^NOTICE:\s+\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s+12345678901234567890/)).be.ok;
     });
 
+    it('should close all output streams', async () => {
+        logger.reset();        
+        let error = {};
+        try {
+            logger.notice("???");
+        }
+        catch (e) {
+            error = e;
+        }
+        error.should.be.an.instanceOf(Error);
+    });
+
 });

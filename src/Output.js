@@ -57,7 +57,7 @@ class Output {
                 this.config.get('path'),
                 this.config.get('path-suffix') || '',
             ].join('');
-            if (this.path.includes('<%')) {
+            if (this.path.includes('<%') && this.path.includes('%>')) {
                 try {
                     this.path = _.template(this.path);
                 }
@@ -75,7 +75,7 @@ class Output {
             }
         }
         else {
-            this.format = null;
+            this.format = (message) => message;
         }
         return this;
     }    
@@ -127,9 +127,7 @@ class Output {
         data.method = data.method || 'METHOD';
         data.date = data.date || dateformat;
         const writable = await this.getWritable(data);
-        if (this.format instanceof Function) {
-            data = this.format(data);
-        }
+        data = this.format(data);
         if (data.length >= this.config.get('line-max-length')) {
             data = data.slice(0, this.config.get('line-max-length')) + '...';
         }

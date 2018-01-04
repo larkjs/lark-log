@@ -11,30 +11,36 @@ const LarkLog       = require('lark-log');
 
 describe('print log with wrong config', () => {
     it('should throw if format is not valid', async () => {
-        let error = await misc.async.catchError((async () => {
+        let error = {};
+        try {
             const logger = new LarkLog({
                 outputs: {
                     system: {
-                        format: "<% 'forget to close the bracket ",
+                        format: "<% something wrong here %>",
                     }
                 }
             });
-            logger.notice("Hello");
-        })());
-        should(error).be.an.instanceOf(Error);
+        }
+        catch (e) {
+            error = e;
+        }
+        error.should.be.an.instanceOf(Error);
     });
 
     it('should throw if path format is not valid', async () => {
-        let error = await misc.async.catchError((async () => {
+        let error = {};
+        try {
             const logger = new LarkLog({
                 outputs: {
                     system: {
-                        path:  "<% 'forget to close the bracket ",
+                        path:  "<% something wrong here %>",
                     }
                 }
             });
-            logger.notice("Hello");
-        })());
-        should(error).be.an.instanceOf(Error);
+        }
+        catch (e) {
+            error = e;
+        }
+        error.should.be.an.instanceOf(Error);
     });
 });

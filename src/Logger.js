@@ -22,11 +22,19 @@ class Logger {
         this._outputs = new Map();
         this._methods = new Set();
         this.configure(config);
-        process.on('exit', () => {
-            for (const output of this._outputs.values()) {
-                output.close();
-            }
-        });
+        process.on('exit', this.reset.bind(this));
+    }
+
+    reset() {
+        debug('reset');
+        for (const output of this._outputs.values()) {
+            output.close();
+        }
+        for (const method of this._methods.values()) {
+            delete this[method];
+        }
+        this._outputs = new Map();
+        this._methods = new Set();
     }
 
     useDefaultConfig() {
@@ -60,12 +68,6 @@ function prepareOutputs(logger) {
         debug(`set output [${outputName}]`);
         logger._outputs.set(outputName, output);
     }
-    for (const outputName of logger._outputs.keys()) {
-        if (!outputsConfig.hasOwnProperty(outputName)) {
-            debug(`remove output [${outputName}]`);
-            logger._outputs.del(outputName);
-        }
-    }
     return logger;
 }
 
@@ -74,9 +76,6 @@ function prepareMethods(logger) {
     debug('prepare methods');
     const methodsConfig = logger._config.get('methods') || {};
     assert(methodsConfig instanceof Object, 'Methods config should be an object');
-    for (const methodName of logger._methods.values()) {
-        delete logger[methodName];
-    }
     for (const methodName in methodsConfig) {
         const methodConfig = methodsConfig[methodName];
         if (Number.parseInt(methodConfig.level) < Number.parseInt(logger._config.get('level') || 1)) {
@@ -95,6 +94,7 @@ function prepareMethods(logger) {
                     content: args.join(' '),
                 });
             };
+            logger._methods.add(methodName);
         }
     }
 }
