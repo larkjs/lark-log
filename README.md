@@ -15,9 +15,9 @@ This is Lark.js log module.
 ```javascript
 const LarkLogger = require('lark-log');
 
-const logger = new LarkLogger();
+const logger = new LarkLogger({ 'using-default': true });
 
-logger.log("Hello");
+logger.notice("Hello");
 ```
 
 ### configure
@@ -28,38 +28,54 @@ const LarkLogger = require('lark-log');
 
 const logger = new LarkLogger();
 
-// set default to false, or the default config will be loaded
-const logger = new LarkLogger({default: false});
-
 const config = {
-    path: "logs",
-    defaultType: "file",
-    level: 1,
-    methods: {
-        debug: {
-            level: 1,
-            output: 'console',
+    {
+    "@description": "This is the default config",
+    "level": 1,
+    "methods": {
+        "debug": {
+            "level": 1,
+            "output": "console"
         },
-        notice: {
-            level: 2,
-            output: 'system',
+        "print": {
+            "level": 2,
+            "output": "console"
         },
-        error: {
-            level: 3,
-            output: 'error',
+        "trace": {
+            "level": 2,
+            "output": "system"
+        },
+        "notice": {
+            "level": 3,
+            "output": "system"
+        },
+        "warn": {
+            "level": 4,
+            "output": "system"
+        },
+        "error": {
+            "level": 5,
+            "output": "error"
+        },
+        "fatal": {
+            "level": 5,
+            "output": "error"
         }
     },
-    outputs: {
-        console:{
-            type: 'stdout',
+    "outputs": {
+        "default": {
+            "line-max-length": 2000,
+            "format": "<%= method.toUpperCase() %>:\t<%= date('yyyy-mm-dd HH:MM:ss')%>\t<%= content %>",
+            "path-prefix": "logs/",
+            "path-suffix": ".log"
         },
-        system: {
-            path: 'app.log'
-            format: '<%- method %>:\t<%- date("YYYY-MM-DD HH:II:SS") %>\t<%- content %>',
+        "console": null,
+        "system": {
+            "path": "system"
         },
-        error: {
-            path: 'app.log.wf'
-            format: '<%- method %>:\t<%- date("YYYY-MM-DD HH:II:SS") %>\t<%- content %>',
+        "error": {
+            "path": "system",
+            "path-suffix": ".log.wf"
         }
     }
 };
@@ -67,9 +83,23 @@ const config = {
 logger.configure(config);
 
 logger.debug('debug');// write "debug " to terminal
-logger.notice('notice');// write "NOTICE: {DATETIME} notice" to app.log, {DATETIME} is in "YYYY-MM-DD HH:II:SS" style
-logger.error('error');//write to app.log.wf
+logger.notice('notice');// write "NOTICE: {DATETIME} notice" to system.log, {DATETIME} is in "yyyy-mm-dd HH:MM:ss" style
+logger.error('error');//write to system.log.wf
 ```
+
+### logrotate
+
+```
+logger.configure({
+    "outputs": {
+        "default": {
+            "path-suffix": ".log.<%= date('yyyymmddHH') %>"
+        }
+    }
+});
+```
+
+* If '<%' exists in path (including prefix and suffix), the path will be regarded as a dynamic path. LarkLog calculates the path every when an output came.
 
 [npm-image]: https://img.shields.io/npm/v/lark-log.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/lark-log
