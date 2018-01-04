@@ -25,10 +25,22 @@ rules:
       identifiers: true
       lang: en_US
       skipWords:
+        - args
         - async
+        - configs
+        - dateformat
+        - del
+        - dirname
         - fs
         - js
+        - lodash
+        - mkdirp
         - param
         - promisify
+        - src
+        - stderr
+        - stdout
+        - yyyy
+        - ss
 plugins:
   - spellcheck

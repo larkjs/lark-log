@@ -1,0 +1,50 @@
+{
+    "@description": "This is the default config",
+    "level": 1,
+    "methods": {
+        "debug": {
+            "level": 1,
+            "output": "console"
+        },
+        "print": {
+            "level": 2,
+            "output": "console"
+        },
+        "trace": {
+            "level": 2,
+            "output": "system"
+        },
+        "notice": {
+            "level": 3,
+            "output": "system"
+        },
+        "warn": {
+            "level": 4,
+            "output": "system"
+        },
+        "error": {
+            "level": 5,
+            "output": "error"
+        },
+        "fatal": {
+            "level": 5,
+            "output": "error"
+        }
+    },
+    "outputs": {
+        "default": {
+            "line-max-length": 2000,
+            "format": "<%= method.toUpperCase() %>:\t<%= date('yyyy-mm-dd HH:MM:ss')%>\t<%= content %>",
+            "path-prefix": "logs/",
+            "path-suffix": ".log"
+        },
+        "console": null,
+        "system": {
+            "path": "system"
+        },
+        "error": {
+            "path": "system",
+            "path-suffix": ".log.wf"
+        }
+    }
+}

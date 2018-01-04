@@ -1,17 +1,18 @@
 {
   "name": "lark-log",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "Stream logging tool",
-  "main": "./lib/Logger.js",
+  "main": "index.js",
   "engines": {
     "node": ">= 7.6"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint index.js example/**",
-    "pretest": "npm run lint && npm link && npm link lark-log",
+    "lint": "./node_modules/.bin/eslint index.js index.js src/**",
+    "test:clear-env": "npm unlink lark-log && npm unlink && npm install",
+    "test:prepare-env": "npm link && npm link lark-log",
+    "pretest": "npm run test:clear-env && npm run lint && npm run test:prepare-env",
     "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should --recursive test",
-    "posttest": "npm unlink",
-    "debug": "node --inspect-brk=9229 example/index.js"
+    "posttest": "npm run test:clear-env"
   },
   "repository": {
     "type": "git",
@@ -28,19 +29,23 @@
   },
   "homepage": "https://github.com/larkjs/lark-log",
   "dependencies": {
-    "dateformat": "^2.0.0",
-    "debug": "^2.6.8",
-    "eslint-plugin-spellcheck": "0.0.8",
+    "bluebird": "^3.5.1",
     "extend": "^3.0.1",
-    "lodash.template": "^4.4.0",
-    "vi-misc": "^1.4.0"
+    "lark-config": "^3.2.2",
+    "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
+    "dateformat": "^3.0.2",
+    "debug": "^3.1.0",
     "eslint": "^3.18.0",
+    "eslint-plugin-spellcheck": "0.0.8",
+    "intercept-stdout": "^0.1.2",
     "istanbul": "^1.1.0-alpha.1",
+    "lodash.template": "^4.4.0",
     "mocha": "^3.0.2",
     "should": "^11.1.0",
     "sinon": "^2.3.6",
-    "test-console": "^1.0.0"
+    "vi-misc": "^1.13.2"
   }
 }
