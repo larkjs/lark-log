@@ -42,5 +42,6 @@ rules:
         - stdout
         - yyyy
         - ss
+        - Larkjs
 plugins:
   - spellcheck

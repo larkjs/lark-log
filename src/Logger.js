@@ -8,7 +8,7 @@ const debug           = require('debug')('lark-log.Logger');
 const extend          = require('extend');
 const LarkConfig      = require('lark-config');
 const DEFAULT_CONFIG  = require('lark-log/config/default.json');
-const Output          = require('./Output');
+const Output          = require('./output');
 
 
 class Logger {

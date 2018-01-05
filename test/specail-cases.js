@@ -87,4 +87,10 @@ describe('log levels', () => {
         error.should.be.an.instanceOf(Error);
     });
 
+    it('should set level to 1 if not defined', async () => {
+        const logger = new LarkLog();
+        logger.useDefaultConfig();
+        logger.configure({ level: null });
+    });
+
 });

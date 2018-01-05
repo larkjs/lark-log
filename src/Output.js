@@ -81,24 +81,20 @@ class Output {
     }    
 
     async getWritable(data = {}) {
-        if (this.writable instanceof Writable) {
-            if (!this.writable.path || !(this.path instanceof Function)) {
-                return this.writable;
-            }
-            const writablePath = this.path(data);
-            if (this.writable.path === writablePath) {
-                return this.writable;
-            }
-            this.close();
-        }
-
-        if (!this.path) {
-            this.writable = process.stdout;
-            return this.writable;
+        if ('string' !== typeof this.path && !(this.path instanceof Function)) {
+            return this.writable instanceof Writable ? this.writable : process.stdout;
         }
 
         let writablePath = this.path instanceof Function ? this.path(data) : this.path;
         writablePath = misc.path.absolute(writablePath);
+
+        if (this.writable instanceof Writable) {
+            if (this.writable.path === writablePath) {
+                return this.writable;
+            }
+            this.writable.close();
+        }
+
         await mkdirpAsync(path.dirname(writablePath, { mode: FILE_MODE_NOT_EXECUTABLE }));
         const fileOptions = _.defaults(this.config.get('file') || {}, DEFAULT_LOG_FILE_OPTIONS);
         debug(fileOptions);
