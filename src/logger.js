@@ -41,7 +41,7 @@ class Logger {
         this.configure({ [Logger.USING_DEFAULT]: true });
     }
 
-    configure(config) {
+    configure(config, tags = []) {
         debug('use config');
         assert(config instanceof Object, 'Invalid logger config, should be an object');
         if (config[Logger.USING_DEFAULT] && !this._config.get(Logger.USING_DEFAULT)) {
@@ -49,7 +49,7 @@ class Logger {
             config = extend(true, {}, DEFAULT_CONFIG, this._config.config, config);
         }
         delete config[Logger.USING_DEFAULT];
-        this._config.use(config);
+        this._config.use(config, tags);
         prepareOutputs(this);
         prepareMethods(this);
     }
