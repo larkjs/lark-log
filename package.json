@@ -7,7 +7,7 @@
     "node": ">= 7.6"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint index.js index.js src/**",
+    "lint": "./node_modules/.bin/eslint index.js src/**",
     "test:clear-env": "npm unlink lark-log && npm unlink && npm install",
     "test:prepare-env": "npm link && npm link lark-log",
     "pretest": "npm run test:clear-env && npm run lint && npm run test:prepare-env",
