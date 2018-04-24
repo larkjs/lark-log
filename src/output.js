@@ -35,6 +35,7 @@ class Output {
         this.writable = null;
         this.config = new LarkConfig();
         this.configure(...args);
+        // process.on('exit', this.close.bind(this));
     }
 
     configure(...configs) {

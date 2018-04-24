@@ -22,7 +22,7 @@ class Logger {
         this._outputs = new Map();
         this._methods = new Set();
         this.configure(config);
-        process.on('exit', this.reset.bind(this));
+        // process.on('exit', this.reset.bind(this));
     }
 
     reset() {
@@ -80,7 +80,7 @@ function prepareMethods(logger) {
         const methodConfig = methodsConfig[methodName];
         if (Number.parseInt(methodConfig.level) < Number.parseInt(logger._config.get('level') || 1)) {
             debug(`define method [${methodName}] to do nothing`);
-            logger[methodName] = () => {};
+            logger[methodName] = async () => {};
         }
         else {
             const outputName = methodConfig.output;
