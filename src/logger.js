@@ -3,9 +3,9 @@
  **/
 'use strict';
 
+const _               = require('lodash');
 const assert          = require('assert');
 const debug           = require('debug')('lark-log.Logger');
-const extend          = require('extend');
 const LarkConfig      = require('lark-config');
 const DEFAULT_CONFIG  = require('lark-log/config/default.json');
 const Output          = require('./output');
@@ -46,7 +46,7 @@ class Logger {
         assert(config instanceof Object, 'Invalid logger config, should be an object');
         if (config[Logger.USING_DEFAULT] && !this._config.get(Logger.USING_DEFAULT)) {
             debug('using default configs');
-            config = extend(true, {}, DEFAULT_CONFIG, this._config.config, config);
+            config = _.defaultsDeep(config, this._config.config, DEFAULT_CONFIG, {});
         }
         delete config[Logger.USING_DEFAULT];
         this._config.use(config, tags);
@@ -58,13 +58,13 @@ class Logger {
 
 function prepareOutputs(logger) {
     debug('prepare outputs');
-    const outputsConfig = logger._config.get('outputs') || {};
+    const outputsConfig = _.cloneDeep(logger._config.get('outputs') || {});
     assert(outputsConfig instanceof Object, 'Outputs config should be an object');
     const defaultConfig = outputsConfig.default || {};
     delete outputsConfig.default;
     for (const outputName in outputsConfig) {
-        const output = logger._outputs.get(outputName) || new Logger.Output(defaultConfig);
-        output.configure(outputsConfig[outputName] || {});
+        const output = logger._outputs.get(outputName) || new Logger.Output();
+        output.configure(_.defaultsDeep(outputsConfig[outputName] ||{}, defaultConfig));
         debug(`set output [${outputName}]`);
         logger._outputs.set(outputName, output);
     }

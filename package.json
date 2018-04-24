@@ -32,7 +32,7 @@
     "bluebird": "^3.5.1",
     "extend": "^3.0.1",
     "lark-config": "^3.2.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
