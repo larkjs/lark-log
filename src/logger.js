@@ -94,8 +94,8 @@ function prepareMethods(logger) {
                     content: args.join(' '),
                 });
             };
-            logger._methods.add(methodName);
         }
+        logger._methods.add(methodName);
     }
 }
 
