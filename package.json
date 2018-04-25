@@ -1,6 +1,6 @@
 {
   "name": "lark-log",
-  "version": "2.6.7",
+  "version": "2.6.8",
   "description": "Stream logging tool",
   "main": "index.js",
   "engines": {
@@ -36,7 +36,7 @@
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
-    "dateformat": "^3.0.2",
+    "dateformat": "^3.0.3",
     "debug": "^3.1.0",
     "eslint": "^3.18.0",
     "eslint-plugin-spellcheck": "0.0.8",
